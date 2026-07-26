@@ -1,8 +1,8 @@
 venv/
 .env
 config/db.sqlite3
-*/__pycache__/
-*/*/__pycache__/
-*/apps/accounts/__pycache__/
-
+*/__pycache__/*
+apps/*/__pycache__/*
+*/apps/accounts/__pycache__/*
+apps/*/migrations/__pycache__/*
 
