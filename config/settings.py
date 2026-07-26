@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +44,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'config.middleware.RequestTimeMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -123,5 +125,32 @@ STATIC_URL = 'static/'
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication"
-    ]
+    ],
+    "EXCEPTION_HANDLER":
+        "config.exception_handler.custom_exception_handler",
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+
+    "formatters": {
+        "standard": {
+            "format": "[{levelname}] {asctime} {message}",
+            "style": "{",
+        },
+    },
+
+    "handlers": {
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "logs/app.log"),
+            "formatter": "standard",
+        },
+    },
+
+    "root": {
+        "handlers": ["file"],
+        "level": "INFO",
+    },
 }
